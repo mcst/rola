@@ -16,6 +16,7 @@ export const FridgeItemComponent = () => {
 
     const onUpdate = async() => {
         updateFridgeItem(id, itemId, modifiedData as FridgeItem);
+        setWorkingData(modifiedData);
         setModifiedData(undefined);
     }
 
@@ -27,11 +28,11 @@ export const FridgeItemComponent = () => {
     ]
 
     useEffect(()=>{
-        if(!workingData || fridgeItem?.id !== workingData?.id ||!modifiedData) {
+        if(!workingData || fridgeItem?.id !== workingData?.id) {
             setWorkingData(fridgeItem);
         }
     },[fridgeItem, workingData, modifiedData]);
-    console.log(modifiedData, workingData)
+
     return <>
         <Toolbar items={toolbarItems} />
         <Details onChange={setModifiedData} data={modifiedData || workingData}></Details>

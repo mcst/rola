@@ -21,7 +21,7 @@ export const Details:FC<iDetails> = ({data, onChange}) => {
 
     return <div>
         <label>Name</label><input value={name||""} onChange={handleNameChange}/>
-        <label>Target</label><input type="number" value={target} onChange={handleTargetChange}/>
+        <label>Target</label><input type="number" value={target||0} onChange={handleTargetChange}/>
     </div>
 
 }
