@@ -24,9 +24,9 @@ export const Modal: FC<{id:string, onClose: () => void, add: (item: FridgeItem) 
             <div className="w3-container">
                 <Details data={fridgeItem as FridgeItem} onChange={handleOnChange}/>
             </div>
-            <footer className="w3-container">
-                <button onClick={onOkay}>add</button>
-                <button onClick={onClose}>close</button>
+            <footer className="w3-container" style={{marginTop:10}}>
+                <button className={"w3-button"} onClick={onOkay}>add</button>
+                <button className={"w3-button"} onClick={onClose}>close</button>
             </footer>
         </div>
     </div>;

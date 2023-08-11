@@ -22,9 +22,11 @@ export const FridgesComponent = () => {
         title:"create fridge",
         onClick:handleOnCreateFridge
     }
+    const title={
+        title:"Fridges"
+    };
 
-
-    const toolbarItems:iToolbarItem[] = [createFridgeButton];
+    const toolbarItems:iToolbarItem[] = [title,createFridgeButton];
 
     return <div style={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"space-between"}}>
             <div  style={{flexGrow:itemId?0.5:1}} className={`${(id && (width<600)) || (itemId && (width<800))?'hidden':''}`}>

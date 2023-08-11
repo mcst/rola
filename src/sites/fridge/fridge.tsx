@@ -22,12 +22,18 @@ export const FridgeComponent = () => {
 
     const toolbarItems:iToolbarItem[] = [
         {
-            title:"Add Item",
-            onClick:()=>setShowModal(true)
+            title:"Fridge Content"
         },
         {
-            title:"close",
-            onClick:()=>navigate("/")
+            title:"Add Item",
+            onClick:()=>setShowModal(true),
+            icon:  "fa fa-plus"
+        },
+        {
+            title:"Close",
+            onClick:()=>navigate("/"),
+            icon:  "fa fa-close",
+            alignRight: true
         },
     ];
 

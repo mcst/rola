@@ -24,7 +24,7 @@ export const FridgeItemComponent = () => {
     const fridge = fridges.find(fridge=>fridge.id===id);
     const fridgeItem:FridgeItem|undefined = useMemo(()=>{return fridge?.inventory?.find(item=>item?.id?.toString() === itemId)},[fridge, itemId]);
     const toolbarItems:iToolbarItem[] = [
-
+        {title:"Fridge Item"},
         {title:"Update", onClick:onUpdate, disabled:!modifiedData},
         {title:"Cancel", onClick:()=> {
                 setWorkingData(fridgeItem);
@@ -32,7 +32,9 @@ export const FridgeItemComponent = () => {
         }, disabled:!modifiedData},
         {
             title:"close",
-            onClick:()=>navigate(`/fridges/${id}`)
+            onClick:()=>navigate(`/fridges/${id}`),
+            icon:  "fa fa-close",
+            alignRight: true
         },
     ]
 
@@ -44,6 +46,6 @@ export const FridgeItemComponent = () => {
 
     return <>
         <Toolbar items={toolbarItems} />
-        <Details onChange={setModifiedData} data={modifiedData || workingData}></Details>
+        <Details onChange={setModifiedData} data={modifiedData || workingData} readonly={["name"]}></Details>
     </>
 }
