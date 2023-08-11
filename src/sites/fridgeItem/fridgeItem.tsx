@@ -24,15 +24,16 @@ export const FridgeItemComponent = () => {
     const fridge = fridges.find(fridge=>fridge.id===id);
     const fridgeItem:FridgeItem|undefined = useMemo(()=>{return fridge?.inventory?.find(item=>item?.id?.toString() === itemId)},[fridge, itemId]);
     const toolbarItems:iToolbarItem[] = [
-        {
-            title:"back",
-            onClick:()=>navigate(`/fridges/${id}`)
-        },
+
         {title:"Update", onClick:onUpdate, disabled:!modifiedData},
         {title:"Cancel", onClick:()=> {
                 setWorkingData(fridgeItem);
                 setModifiedData(undefined);
-        }, disabled:!modifiedData}
+        }, disabled:!modifiedData},
+        {
+            title:"close",
+            onClick:()=>navigate(`/fridges/${id}`)
+        },
     ]
 
     useEffect(()=>{
