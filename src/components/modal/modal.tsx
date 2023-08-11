@@ -13,13 +13,21 @@ export const Modal: FC<{id:string, onClose: () => void, add: (item: FridgeItem) 
         onClose();
     }
 
-    return <div className="w3-modal" style={{display:"block"}}>
-        <div className="w3-modal-content">
+    return <div className="w3-modal" style={{display:"block", color:"black"}}>
+        <div className="w3-modal-content w3-card-4">
+            <header className="w3-container">
+                <span onClick={onClose}className="w3-button w3-display-topright">
+                    &times;
+                </span>
+                <h2>Add a new item to your fridge</h2>
+            </header>
             <div className="w3-container">
                 <Details data={fridgeItem as FridgeItem} onChange={handleOnChange}/>
+            </div>
+            <footer className="w3-container">
                 <button onClick={onOkay}>add</button>
                 <button onClick={onClose}>close</button>
-            </div>
+            </footer>
         </div>
     </div>;
 }

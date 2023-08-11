@@ -1,6 +1,6 @@
 import {Details} from "../../components/details/details";
 import {FridgeContext, useFridgeContext} from "../../App";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {FridgeItem} from "../../types/fridgeItem";
 import {Toolbar} from "../../components/toolbar/toolbar";
 import {iToolbarItem} from "../../components/toolbar/toolbarItem";
@@ -8,8 +8,9 @@ import {useEffect, useMemo, useState} from "react";
 
 export const FridgeItemComponent = () => {
 
-    const {id, itemId} = useParams<{id:string, itemId:string}>();
+    const {id="", itemId=""} = useParams<{id:string, itemId:string}>();
     const {fridges, updateFridgeItem} = useFridgeContext(FridgeContext);
+    const navigate = useNavigate();
 
     const [workingData, setWorkingData] = useState<Partial<FridgeItem>>();
     const [modifiedData, setModifiedData] = useState<Partial<FridgeItem>>();
@@ -23,8 +24,15 @@ export const FridgeItemComponent = () => {
     const fridge = fridges.find(fridge=>fridge.id===id);
     const fridgeItem:FridgeItem|undefined = useMemo(()=>{return fridge?.inventory?.find(item=>item?.id?.toString() === itemId)},[fridge, itemId]);
     const toolbarItems:iToolbarItem[] = [
+        {
+            title:"back",
+            onClick:()=>navigate(`/fridges/${id}`)
+        },
         {title:"Update", onClick:onUpdate, disabled:!modifiedData},
-        {title:"Cancel", onClick:()=>setWorkingData(fridgeItem), disabled:!modifiedData}
+        {title:"Cancel", onClick:()=> {
+                setWorkingData(fridgeItem);
+                setModifiedData(undefined);
+        }, disabled:!modifiedData}
     ]
 
     useEffect(()=>{

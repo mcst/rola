@@ -6,5 +6,7 @@ export interface iToolbar{
 }
 
 export const Toolbar:FC<iToolbar> = ({items}) => {
-    return <ul className="w3-bar">{items.map(item => <ToolbarItem key={item.title} {...item}/>)}</ul>
+    return <div  className="w3-bar w3-card">
+        {items.map(item => <ToolbarItem key={item.title} {...item}/>)}
+    </div>
 }

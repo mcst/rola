@@ -1,13 +1,15 @@
 import React, {Context, FC, ReactNode, useContext, useState} from 'react';
 import './App.css';
 import {FridgesComponent} from "./sites/fridges/fridges";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {FridgeComponent} from "./sites/fridge/fridge";
 import {Fridge} from "./types/fridge";
 import {postFridge} from "./api/fridgeServices";
 import {FridgeItem} from "./types/fridgeItem";
 import {createFridgeItem, postFridgeItem} from "./api/fridgeItemServices";
 import {FridgeItemComponent} from "./sites/fridgeItem/fridgeItem";
+import {AppHeader} from "./components/appHeader/appHeader";
+import ErrorPage from "./components/errorPage/errorPage";
 
 export interface iFridgeContext{
     fridges?:Array<Fridge>
@@ -20,19 +22,35 @@ export const FridgeContext = React.createContext<iFridgeContext>({});
 
 function App() {
 
+    const router = createBrowserRouter([
+        {
+            path:"/",
+            element:<FridgesComponent/>,
+            errorElement: <ErrorPage />,
+            children:[
+                {
+                    path:"/fridges/:id",
+                    element:<FridgeComponent/>,
+                    children:[
+                        {
+                            path:"/fridges/:id/items/:itemId",
+                            element:<FridgeItemComponent/>
+                        }
+                    ]
+                }
+            ]
+        },
+
+    ])
+
     return (
-        <div className="App">
-            <header className="App-header">
+        <div>
+            <AppHeader/>
+            <div style={{paddingTop:48}}>
                 <FridgeContextProvider>
-                    <BrowserRouter>
-                        <Switch>
-                                <Route exact path="/" component={FridgesComponent}/>
-                                <Route exact path="/fridges/:id" component={FridgeComponent}/>
-                                <Route path="/fridges/:id/items/:itemId" component={FridgeItemComponent}/>
-                        </Switch>
-                    </BrowserRouter>
+                    <RouterProvider router={router}/>
                 </FridgeContextProvider>
-            </header>
+            </div>
         </div>
     );
 }
@@ -76,7 +94,6 @@ export const useFridgeContext = (context:Context<any>):iUseFridgeContext => {
 
     const updateFridgeItem = async(fridgeId:string, fridgeItemId:string, fridgeItem:FridgeItem)=>{
         const responseItem = await postFridgeItem(fridgeId, fridgeItemId, fridgeItem);
-        console.log(responseItem)
         if(responseItem) {
             setFridges(fridges.map((fridge: Fridge) => {
                 if (fridge.id === fridgeId) {
