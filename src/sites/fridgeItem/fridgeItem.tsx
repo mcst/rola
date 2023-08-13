@@ -46,6 +46,8 @@ export const FridgeItemComponent = () => {
 
     return <>
         <Toolbar items={toolbarItems} />
-        <Details onChange={setModifiedData} data={modifiedData || workingData} readonly={["name"]}></Details>
+        <div style={{height: "calc(100% - 38px)",  overflowY: "auto"}}>
+            <Details onChange={setModifiedData} data={modifiedData || workingData} readonly={["name"]}></Details>
+        </div>
     </>
 }

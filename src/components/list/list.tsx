@@ -6,6 +6,6 @@ export interface iList<T>{
 export function List<T>(props:iList<T>){
     const {renderItem, items} = props;
     return <ul className="w3-ul">
-        {items?.map(item => renderItem(item))}
-    </ul>
+            {items?.map(item => renderItem(item))}
+        </ul>
 }

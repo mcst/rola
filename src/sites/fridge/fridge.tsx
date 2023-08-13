@@ -37,10 +37,10 @@ export const FridgeComponent = () => {
         },
     ];
 
-    return <div style={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"space-between"}}>
+    return <div style={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"space-between", height:"100%"}}>
         <div style={{flexGrow:1}} className={`${itemId && (width<600)?'hidden':''}`}>
             <Toolbar items={toolbarItems}/>
-            <List items={inventory} renderItem={item => <FridgeItemListItem key={item?.id} itemId={item?.id?.toString()} title={item.name} id={id}/>}/>
+            <div style={{height:"calc(100% - 38px)", overflowY:"auto"}}><List items={inventory} renderItem={item => <FridgeItemListItem key={item?.id} itemId={item?.id?.toString()} title={item.name} id={id}/>}/></div>
         </div>
         {id && itemId?
             <div style={{flexGrow:1}}>

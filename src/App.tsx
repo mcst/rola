@@ -1,4 +1,4 @@
-import React, {Context, FC, ReactNode, useContext, useState} from 'react';
+import React, {Context, FC, ReactNode, useContext} from 'react';
 import './App.css';
 import {FridgesComponent} from "./sites/fridges/fridges";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
@@ -10,6 +10,7 @@ import {createFridgeItem, postFridgeItem} from "./api/fridgeItemServices";
 import {FridgeItemComponent} from "./sites/fridgeItem/fridgeItem";
 import {AppHeader} from "./components/appHeader/appHeader";
 import ErrorPage from "./components/errorPage/errorPage";
+import { useLocalStorage } from './components/localStorage/localStorage';
 
 export interface iFridgeContext{
     fridges?:Array<Fridge>
@@ -44,9 +45,9 @@ function App() {
     ])
 
     return (
-        <div>
+        <div style={{height:"100%"}}>
             <AppHeader/>
-            <div style={{paddingTop:48}}>
+            <div style={{paddingTop:74, height: "100%"}}>
                 <FridgeContextProvider>
                     <RouterProvider router={router}/>
                 </FridgeContextProvider>
@@ -58,8 +59,8 @@ function App() {
 export default App;
 
 const FridgeContextProvider: FC<{ children: ReactNode }> = ({children}) => {
-    const [fridges, setFridges] = useState<Fridge[]>([]);
 
+    const {value:fridges, updateValue:setFridges} = useLocalStorage("fridges",[]);
 
     return  <FridgeContext.Provider value={{fridges, setFridges}}>
         {children}

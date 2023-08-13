@@ -28,10 +28,12 @@ export const FridgesComponent = () => {
 
     const toolbarItems:iToolbarItem[] = [title,createFridgeButton];
 
-    return <div style={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"space-between"}}>
+    return <div style={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"space-between", height:"100%"}}>
             <div  style={{flexGrow:itemId?0.5:1}} className={`${(id && (width<600)) || (itemId && (width<800))?'hidden':''}`}>
                 <Toolbar items={toolbarItems}/>
-                <List items={fridges} renderItem={item=><FridgesListItem key={item?.id} title={item?.id || ""} id={item.id}/>}/>
+                <div style={{height:"calc(100% - 39px", overflowY:"auto"}}>
+                    <List items={fridges} renderItem={item=><FridgesListItem key={item?.id} title={item?.id || ""} id={item.id}/>}/>
+                </div>
             </div>
             {id?
                 <div style={{flexGrow:itemId?2:1}}>
